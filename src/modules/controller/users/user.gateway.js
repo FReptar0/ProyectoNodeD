@@ -24,10 +24,11 @@ const findById = async (id) => {
 
 const save = async (user) => {
     try {
-        const { email, password, role, status, personal_id } = user;
+        const { email, password, role, personal_id } = user;
+        // make an insert query with the status in 1
         const sql = `INSERT INTO users (email, password, role, status, personal_id) VALUES (?,?,?,?,?)`;
-        const userSaved = await query(sql, [email, password, role, status, personal_id]);
-        return userSaved;
+        const newUser = await query(sql, [email, password, role, 1, personal_id]);
+        return newUser;
     } catch (error) {
         console.log(error);
         throw new Error(error);

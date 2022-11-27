@@ -27,8 +27,8 @@ const getById = async (req, res = Response) => {
 
 const create = async (req, res = Response) => {
     try {
-        const { email, password, role, status, personal_id } = req.body;
-        const user = { email, password, role, status, personal_id };
+        const { email, password, role, personal_id } = req.body;
+        const user = { email, password, role, personal_id };
         const newUser = await save(user);
         res.status(201).json(newUser);
     } catch (error) {
