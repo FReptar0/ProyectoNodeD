@@ -1,4 +1,5 @@
 const { query } = require('../../../utils/MySQL');
+const {hashPassword} = require('../../../utils/functions');
 
 const findAll = async () => {
     try {
@@ -27,13 +28,13 @@ const findById = async (id) => {
 const save = async (user) => {
     if (!user) throw Error('Missing fields');
     if (user.role != 'admin' && user.role != 'user') throw Error('Wrong type of role');
-    if (user.status != 1 && user.status != 0) throw Error('Wrong type status');
     try {
         const { email, password, role, personal_id } = user;
-        // make an insert query with the status in 1
+        const hashedPassword = await hashPassword(password);
         const sql = `INSERT INTO users (email, password, role, status, personal_id) VALUES (?,?,?,?,?)`;
-        const newUser = await query(sql, [email, password, role, 1, personal_id]);
-        return newUser;
+        const newUser = await query(sql, [email, hashedPassword, role, 1, personal_id]);
+        delete newUser.password;
+        return {...user, id: newUser.insertId};
     } catch (error) {
         console.log(error);
         throw new Error(error);
@@ -48,8 +49,9 @@ const update = async (user, id) => {
     if (user.status != 1 && user.status != 0) throw Error('Wrong type status');
     try {
         const { email, password, role, status, personal_id } = user;
+        const hashedPassword = await hashPassword(user.password);
         const sql = `UPDATE users SET email=?, password=?, role=?, status=?, personal_id=? WHERE id=?`;
-        const userUpdated = await query(sql, [email, password, role, status, personal_id, id]);
+        const userUpdated = await query(sql, [email, hashedPassword, role, status, personal_id, id]);
         return userUpdated;
     } catch (error) {
         console.log(error);

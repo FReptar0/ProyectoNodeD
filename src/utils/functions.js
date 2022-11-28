@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const validateError = (error) => {
     switch (error.message) {
         case 'Wrong type':
@@ -17,5 +19,11 @@ const validateError = (error) => {
     }
 };
 
+const hashPassword = async (password) => {
+    const salt = await bcrypt.genSalt(15);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+};
 
-module.exports = { validateError };
+
+module.exports = { validateError, hashPassword };
