@@ -1,44 +1,44 @@
-CREATE DATABASE UTEZ;
-USE UTEZ;
+create database utez;
+use utez;
 
-CREATE TABLE POSITION (
-    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
-    POSITION VARCHAR(50) NOT NULL,
-    DESCRIPTION VARCHAR(50) NULL
+create table position (
+    id bigint primary key auto_increment,
+    position varchar(50) not null,
+    description varchar(50) null
 );
 
-CREATE TABLE PERSONAL (
-    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
-    NAME VARCHAR(40) NOT NULL,
-    LASTNAME VARCHAR(40) NULL,
-    SALARY DOUBLE NOT NULL,
-    BIRTHDAY DATE NOT NULL,
-    POSITION_ID BIGINT NOT NULL,
-    CONSTRAINT FK_PERSONAL_POSITION FOREIGN KEY (POSITION_ID) REFERENCES POSITION (ID)
+create table personal (
+    id bigint primary key auto_increment,
+    name varchar(40) not null,
+    lastname varchar(40) null,
+    salary double not null,
+    birthday date not null,
+    position_id bigint not null,
+    constraint fk_personal_position foreign key (position_id) references position (id)
 );
 
-CREATE TABLE USERS (
-    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
-    EMAIL VARCHAR(50) NOT NULL,
-    PASSWORD TEXT NULL,
-    ROLE VARCHAR(20) NOT NULL,
-    STATUS INT NOT NULL,
-    PERSONAL_ID BIGINT NOT NULL,
-    CONSTRAINT FK_USERS_PERSONAL FOREIGN KEY (PERSONAL_ID) REFERENCES PERSONAL (ID)
+create table users (
+    id bigint primary key auto_increment,
+    email varchar(50) not null,
+    password text null,
+    role varchar(20) not null,
+    status int not null,
+    personal_id bigint not null,
+    constraint fk_users_personal foreign key (personal_id) references personal (id)
 );
 
-INSERT INTO POSITION (POSITION, DESCRIPTION) VALUES ('DIRECTOR', 'DIRECTOR OF THE COMPANY');
-INSERT INTO POSITION (POSITION, DESCRIPTION) VALUES ('MANAGER', 'MANAGER OF THE COMPANY');  
-INSERT INTO POSITION (POSITION, DESCRIPTION) VALUES ('DEVELOPER', 'DEVELOPER OF THE COMPANY');
-INSERT INTO POSITION (POSITION, DESCRIPTION) VALUES ('TESTER', 'TESTER OF THE COMPANY');
-INSERT INTO POSITION (POSITION, DESCRIPTION) VALUES ('DESIGNER', 'DESIGNER OF THE COMPANY');
+insert into position (position, description) values ('director', 'director of the company');
+insert into position (position, description) values ('manager', 'manager of the company');  
+insert into position (position, description) values ('developer', 'developer of the company');
+insert into position (position, description) values ('tester', 'tester of the company');
+insert into position (position, description) values ('designer', 'designer of the company');
 
-INSERT INTO PERSONAL (NAME, LASTNAME, SALARY, BIRTHDAY, POSITION_ID) VALUES ('JUAN', 'PEREZ', 10000, '1990-01-01', 1);
-INSERT INTO PERSONAL (NAME, LASTNAME, SALARY, BIRTHDAY, POSITION_ID) VALUES ('PEDRO', 'PEREZ', 10000, '1990-01-01', 2);
-INSERT INTO PERSONAL (NAME, LASTNAME, SALARY, BIRTHDAY, POSITION_ID) VALUES ('JUAN', 'PEREZ', 10000, '1990-01-01', 3);
-INSERT INTO PERSONAL (NAME, LASTNAME, SALARY, BIRTHDAY, POSITION_ID) VALUES ('JUAN', 'PEREZ', 10000, '1990-01-01', 4);
+insert into personal (name, lastname, salary, birthday, position_id) values ('juan', 'perez', 10000, '1990-01-01', 1);
+insert into personal (name, lastname, salary, birthday, position_id) values ('pedro', 'perez', 10000, '1990-01-01', 2);
+insert into personal (name, lastname, salary, birthday, position_id) values ('juan', 'perez', 10000, '1990-01-01', 3);
+insert into personal (name, lastname, salary, birthday, position_id) values ('juan', 'perez', 10000, '1990-01-01', 4);
 
-INSERT INTO USERS (EMAIL, PASSWORD, ROLE, STATUS, PERSONAL_ID) VALUES ('example1@domain.com', '123456', 'ADMIN', 1, 1);
-INSERT INTO USERS (EMAIL, PASSWORD, ROLE, STATUS, PERSONAL_ID) VALUES ('example2@domain.com', '123456', 'ADMIN', 1, 1);
-INSERT INTO USERS (EMAIL, PASSWORD, ROLE, STATUS, PERSONAL_ID) VALUES ('example3@domain.com', '123456', 'USER', 1, 1);
-INSERT INTO USERS (EMAIL, PASSWORD, ROLE, STATUS, PERSONAL_ID) VALUES ('example4@domain.com', '123456', 'USER', 1, 1);
+insert into users (email, password, role, status, personal_id) values ('example1@domain.com', '123456', 'admin', 1, 1);
+insert into users (email, password, role, status, personal_id) values ('example2@domain.com', '123456', 'admin', 1, 1);
+insert into users (email, password, role, status, personal_id) values ('example3@domain.com', '123456', 'user', 1, 1);
+insert into users (email, password, role, status, personal_id) values ('example4@domain.com', '123456', 'user', 1, 1);
