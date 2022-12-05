@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
-const { personalRouter, userRouter } = require('../modules/controller/routes')
+const { personalRouter, userRouter, authRouter } = require('../modules/controller/routes')
 
 const app = express();
 
@@ -16,5 +16,6 @@ app.get('/', (req, res) => {
 
 app.use('/personal', personalRouter);
 app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 module.exports = { app }
