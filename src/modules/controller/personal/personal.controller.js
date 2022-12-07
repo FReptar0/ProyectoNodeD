@@ -1,7 +1,7 @@
-'strict'
 const { Response, Router } = require('express');
 const { validateError } = require('../../../utils/functions');
 const { findAll, findById, save, update, remove } = require('./personal.gateway');
+const { auth, checkRoles } = require('../../../config/jwt');
 
 const getAll = async (req, res = Response) => {
     try {
@@ -68,6 +68,7 @@ const eliminate = async (req, res = Response) => {
 
 
 const personalRouter = Router();
+//personalRouter.get('/',[auth, checkRoles(["user", "admin"])], getAll);
 personalRouter.get('/', getAll);
 personalRouter.get('/:id', getById);
 personalRouter.post('/', create);

@@ -1,6 +1,6 @@
 const { query } = require('../../../utils/MySQL');
 const { generateToken } = require('../../../config/jwt');
-const { hashPassword, validatePassword } = require('../../../utils/functions');
+const { validatePassword } = require('../../../utils/functions');
 
 const login = async (user) => {
     const { email, password } = user;
@@ -10,17 +10,15 @@ const login = async (user) => {
     const sql = `SELECT * FROM users WHERE email = ? AND status = 1`;
     const existsUser = await query(sql, [email]);
     console.log(existsUser[0]);
-    console.log(await validatePassword(password, existsUser[0].PASSWORD));
-    if (await validatePassword(password, existsUser[0].PASSWORD))
+    console.log(await validatePassword(password, existsUser[0].password));
+    if (await validatePassword(password, existsUser[0].password))
         return generateToken({
-            id: existsUser[0].ID,
+            id: existsUser[0].id,
             email: email,
-            role: existsUser[0].ROLE,
+            role: existsUser[0].role,
             isLogged: true,
         });
     throw Error('Invalid credentials');
-
-
 }
 
 module.exports = { login };
