@@ -17,10 +17,10 @@ const findById = async (id) => {
 
 const save = async (personal) => {
     if (!personal) throw Error('Missing fields');
-    const { name, lastname, position_id, salary } = personal;
+    const { name, lastname, birthday, position_id, salary } = personal;
     
-    const sql = `INSERT INTO personal (name, lastname, position_id, salary) VALUES (?,?,?,?)`;
-    return await query(sql, [name, lastname, position_id, salary]);
+    const sql = `INSERT INTO personal (name, lastname, birthday, position_id, salary) VALUES (?,?,?,?,?)`;
+    return await query(sql, [name, lastname, birthday, position_id, salary]);
 }
 
 const update = async (personal, id) => {

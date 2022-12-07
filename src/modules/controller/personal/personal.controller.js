@@ -28,8 +28,8 @@ const getById = async (req, res = Response) => {
 
 const create = async (req, res = Response) => {
     try {
-        const { name, lastname, position_id, salary } = req.body;
-        const personal = { name, lastname, position_id, salary };
+        const { name, lastname, birthday, position_id, salary } = req.body;
+        const personal = { name, lastname, birthday, position_id, salary };
         const newPersonal = await save(personal);
         res.status(201).json(newPersonal);
     } catch (error) {
